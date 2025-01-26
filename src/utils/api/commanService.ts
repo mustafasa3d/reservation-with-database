@@ -122,6 +122,7 @@ export const fetchHotels = async (
     const { data: responseData } = await axios.get(`/hotels.json`);
 
     const response = Object.entries(responseData).map(([id, values]) => ({
+      /* @ts-ignore */
       ...values,
       id, // إضافة الخاصية id
     }));

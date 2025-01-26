@@ -10,6 +10,7 @@ type Props = {
 async function SingleReservation({ params }: Props) {
   const { id } = await params;
   const reservationData = await getSingleData(`reservations/${id}`);
+  reservationData.id = id;
   return (
     <>
       <Header
