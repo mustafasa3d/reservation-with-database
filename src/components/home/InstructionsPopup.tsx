@@ -127,6 +127,17 @@ const InstructionsPopup = ({
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black/95 flex flex-col items-center justify-center px-14 overflow-y-auto">
       <div className="max-h-[90vh] w-full overflow-y-auto">
+        <h2>
+          if you are watch this message in live (not local) and url not
+          (http://localhost:3000/) ignore this popup and
+        </h2>
+        <button
+          onClick={() => setOpen(false)}
+          className="mt-5 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+        >
+          close it
+        </button>
+
         <p className="text-white text-2xl mb-5">
           If you encounter any problem please contact me
         </p>
@@ -146,7 +157,7 @@ const InstructionsPopup = ({
             </button>
           </div>
         </div>
-        
+
         <div className="border border-blue-700 p-5 rounded-xl mt-5">
           <h3 className="mb-5 text-green-500">Users</h3>
           <div className="border-b border-white pb-2 mb-2">
@@ -174,8 +185,6 @@ const InstructionsPopup = ({
             </button>
           </div>
         </div>
-
-       
 
         <h2 className="mb-5 mt-32 text-2xl">
           If you want run this project locally download it from github then
