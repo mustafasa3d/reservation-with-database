@@ -44,7 +44,7 @@ const PopupModal: React.FC<PopupProps> = ({
               onClick={onClose}
               className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full"
             >
-              موافق
+              OK
             </button>
           )}
         </div>

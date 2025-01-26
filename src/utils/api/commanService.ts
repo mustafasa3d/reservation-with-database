@@ -22,7 +22,7 @@ export const login = async (
 
     const users = Object.entries(usersData).map(([id, values]) => ({
       ...values,
-      id, // إضافة الخاصية id
+      id,
     }));
 
     const user = users?.find(
@@ -69,7 +69,7 @@ export const createReservation = async (
   const missingFields = requiredFields.filter((field) => !formData[field]);
 
   if (missingFields.length > 0) {
-    setError("يرجى ملء جميع الحقول المطلوبة");
+    setError("Please fill in all the required fields");
     return;
   }
 
@@ -80,12 +80,12 @@ export const createReservation = async (
   const checkOutDate = new Date(formData.checkOut);
 
   if (checkInDate < today) {
-    setError("لا يمكن حجز تاريخ في الماضي");
+    setError("Cannot book a date in the past");
     return;
   }
 
   if (checkOutDate <= checkInDate) {
-    setError("يجب أن يكون تاريخ المغادرة بعد تاريخ الوصول");
+    setError("Check-out date must be after check-in date");
     return;
   }
 
@@ -102,11 +102,13 @@ export const createReservation = async (
       );
     }
 
-    setPopupMessage("تم الحجز بنجاح!");
+    setPopupMessage("Reservation successful!");
     setIsSuccess(true);
     setShowPopup(true);
   } catch (err) {
-    setPopupMessage("حدث خطأ أثناء الحجز. يرجى المحاولة مرة أخرى.");
+    setPopupMessage(
+      "An error occurred during the reservation. Please try again."
+    );
     setIsSuccess(false);
     setShowPopup(true);
   } finally {
@@ -123,7 +125,7 @@ export const fetchHotels = async (
     const response = Object.entries(responseData).map(([id, values]) => ({
       /* @ts-ignore */
       ...values,
-      id, // إضافة الخاصية id
+      id,
     }));
 
     if (response) {

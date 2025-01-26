@@ -9,10 +9,8 @@ export const fetchReservationsAdmin = async (
   try {
     setLoading(true);
 
-    // تحويل searchParams إلى كائن
     const searchParams = Object.fromEntries(searchParamsData.entries());
 
-    // إضافة query parameters بناءً على searchParams
     const queryParams = [];
     if (searchParams?.status) {
       queryParams.push(`orderBy="status"&equalTo="${searchParams.status}"`);
@@ -25,23 +23,20 @@ export const fetchReservationsAdmin = async (
     }
 
     let endPoint = "reservations.json";
-    // إذا كانت هناك query parameters، أضفها إلى الرابط
+
     if (queryParams.length > 0) {
       endPoint += `?${queryParams.join("&")}`;
     }
 
-    // إرسال طلب GET إلى Firebase
     const { data: responseData } = await axios.get(endPoint);
 
-    // تحويل البيانات إلى مصفوفة من الحجوزات
     const reservations = Object.entries(responseData || {}).map(
       ([id, values]) => ({
         ...(values as Reservation),
-        id, // إضافة الخاصية id
+        id,
       })
     );
 
-    // تحديث state بالحجوزات
     setReservations(reservations);
   } catch (error) {
     console.error("Failed to fetch reservations:", error);

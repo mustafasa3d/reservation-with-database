@@ -1,19 +1,19 @@
 "use client";
 
 import React from "react";
-import Select from "react-select"; // استيراد react-select
+import Select from "react-select";
 
 interface CustomInputProps {
   type: string;
   name: string;
   value: string | number;
-  onChange: (e: any) => void; // تغيير النوع ليتناسب مع react-select
+  onChange: (e: any) => void;
   placeholder?: string;
   label?: string;
   required?: boolean;
   className?: string;
   options?: { value: string; label: string }[];
-  isReactSelect?: boolean; // خاصية جديدة لتحديد react-select
+  isReactSelect?: boolean;
   min?: number; 
   max?: number; 
 }
@@ -28,7 +28,7 @@ const CustomInput = ({
   required,
   className,
   options,
-  isReactSelect = false, // افتراضيًا false
+  isReactSelect = false,
   ...props
 }: CustomInputProps) => {
   return (

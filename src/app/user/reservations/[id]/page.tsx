@@ -1,10 +1,9 @@
-import AdminDashboard from "@/components/admin/AdminDashboard";
 import Header from "@/components/Header";
 import SingleReservationView from "@/components/SingleReservationView";
 import { getSingleData } from "@/utils/api/commanService";
 
 type Props = {
-  params: Promise<{ id: string | any }>; // Handle both promise and object
+  params: Promise<{ id: string | any }>;
 };
 
 async function SingleReservation({ params }: Props) {
