@@ -37,7 +37,6 @@ export const login = async (
       if (user.role === "admin") {
         router.push("/admin");
       } else {
-        console.log("hreeeeeeeee", user);
         router.push("/user");
       }
     } else {

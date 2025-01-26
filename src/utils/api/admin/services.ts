@@ -1,12 +1,4 @@
-import {
-  Reservation,
-  ReservationForm,
-  hotel,
-  selectOption,
-  userData,
-  userLogin,
-} from "@/types";
-
+import { Reservation } from "@/types";
 import axios from "../initAxios";
 
 export const fetchReservationsAdmin = async (
@@ -38,11 +30,8 @@ export const fetchReservationsAdmin = async (
       endPoint += `?${queryParams.join("&")}`;
     }
 
-    console.log("endPoint", endPoint);
     // إرسال طلب GET إلى Firebase
     const { data: responseData } = await axios.get(endPoint);
-
-    console.log("xxxxxxxxxxxxxxxxxxxxxxz", responseData);
 
     // تحويل البيانات إلى مصفوفة من الحجوزات
     const reservations = Object.entries(responseData || {}).map(
@@ -74,7 +63,7 @@ export const handleUpdateReservation = async (
     if (status === "deleted") {
       /* if (status === 'deleted') */
       const data = await axios.delete(`/reservations/${id}.json`);
-      
+
       if (data?.status === 200) {
         setReservations((prev) =>
           prev.filter((reservation) => reservation.id !== id)
