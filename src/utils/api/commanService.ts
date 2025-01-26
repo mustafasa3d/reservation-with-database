@@ -18,7 +18,12 @@ export const login = async (
 ) => {
   setLoading(true);
   try {
-    const { data: users } = await axios.get<userData[]>(`/login`);
+    const { data: usersData } = await axios.get<userData[]>(`/login.json`);
+
+    const users = Object.entries(usersData).map(([id, values]) => ({
+      ...values,
+      id, // إضافة الخاصية id
+    }));
 
     const user = users?.find(
       (u) => u.username === data.username && u.password === data.password
@@ -29,13 +34,11 @@ export const login = async (
       Cookie.set("role", user.role);
       Cookie.set("username", user.username);
 
-
-      
       if (user.role === "admin") {
         router.push("/admin");
       } else {
         console.log("hreeeeeeeee", user);
-        router.push("/user")
+        router.push("/user");
       }
     } else {
       setError("Invalid username or password");
@@ -91,7 +94,7 @@ export const createReservation = async (
   try {
     /* @ts-ignore */
     formData.status = "pending";
-    const newReservation = await axios.post(`/reservations`, formData);
+    const newReservation = await axios.post(`/reservations.json`, formData);
 
     if (newReservation?.data) {
       setReservations(
@@ -116,9 +119,15 @@ export const fetchHotels = async (
   setHotels: React.Dispatch<React.SetStateAction<selectOption[]>>
 ) => {
   try {
-    const response = await axios.get(`/hotels`);
-    if (response?.data) {
-      const allHotels = response?.data.map((hotel: hotel) => ({
+    const { data: responseData } = await axios.get(`/hotels.json`);
+
+    const response = Object.entries(responseData).map(([id, values]) => ({
+      ...values,
+      id, // إضافة الخاصية id
+    }));
+
+    if (response) {
+      const allHotels = response.map((hotel: hotel) => ({
         value: hotel.name,
         label: hotel.name,
       }));
@@ -140,8 +149,9 @@ export const logout = (router: any) => {
 
 export const getSingleData = async (endPoint: string) => {
   try {
-    const response = await axios.get(`/${endPoint}`);
-    return response?.data;
+    const { data: responseData } = await axios.get(`/${endPoint}.json`);
+
+    return responseData;
   } catch (error) {
     console.error("Failed to fetch reservations:", error);
   }
